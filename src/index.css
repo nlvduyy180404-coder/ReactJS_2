@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;500;700&display=swap');
+
+:root {
+  --primary: #f0a8d0;
+  --secondary: #8c52ff;
+  --bg-dark: #0f172a;
+  --text-main: #f8fafc;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* App Layout */
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  background-image: url('/background.jpg'); /* Expected background from drive */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.6) 100%);
+  backdrop-filter: blur(8px);
+  z-index: 1;
+}
+
+.content-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  padding: 2rem 0;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  background: linear-gradient(to right, #f0a8d0, #8c52ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: pulse 3s infinite alternate;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.8; }
+  100% { opacity: 1; filter: drop-shadow(0 0 10px rgba(140, 82, 255, 0.5)); }
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* Model Display */
+.model-display-container {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  width: 100%;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
+.model-wrapper {
+  position: relative;
+  width: 320px;
+  height: 400px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.model-wrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+}
+
+.model-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* If image is missing, we show a nice gradient fallback */
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+}
+
+.glass-overlay {
+  position: absolute;
+  top: 25%; /* Adjust this based on where the eyes are in the model image */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px; /* Adjust size based on model face scale */
+  z-index: 10;
+  animation: dropIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes dropIn {
+  0% { transform: translate(-50%, -20px) scale(0.9); opacity: 0; }
+  100% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+}
+
+.glass-img {
+  width: 100%;
+  height: auto;
+  opacity: 0.85; /* slight transparency for realism, optional */
+}
+
+/* Glass Info Box */
+.glass-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 120, 150, 0.85); /* As requested by the user screenshot (pinkish) */
+  padding: 1.2rem;
+  backdrop-filter: blur(10px);
+  transform: translateY(0);
+  animation: slideUp 0.4s ease-out forwards;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.glass-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.glass-desc {
+  font-size: 0.9rem;
+  color: #fff;
+  line-height: 1.4;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Glasses List Grid */
+.glasses-list-container {
+  width: 100%;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(16px);
+  margin-bottom: 3rem;
+}
+
+.glasses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.glass-item {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 150px;
+  aspect-ratio: 2/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glass-item:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(140, 82, 255, 0.3);
+  border-color: var(--primary);
+}
+
+.glass-item.active {
+  border-color: var(--secondary);
+  box-shadow: 0 0 20px rgba(140, 82, 255, 0.5);
+  transform: scale(1.05);
+}
+
+.glass-item-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.glass-item:hover .glass-item-img {
+  transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .model-display-container {
+    gap: 2rem;
+  }
+  .header h1 {
+    font-size: 2rem;
+  }
+}
